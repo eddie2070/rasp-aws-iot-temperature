@@ -1,0 +1,4 @@
+# ignore device certificate and key files,
+*.pem
+*.crt
+*.key

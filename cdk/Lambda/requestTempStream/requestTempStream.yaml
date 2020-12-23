@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  requestTempStream:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs12.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 10
+      Role: >-
+        arn:aws:iam::753451452012:role/service-role/requestTempStream-role-knvije1x
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /temp
+            Method: ANY
+        Api2:
+          Type: Api
+          Properties:
+            Path: /temp
+            Method: GET
+        Api3:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        AlexaSkillEvent:
+          Type: AlexaSkill

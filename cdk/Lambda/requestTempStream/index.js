@@ -1,5 +1,6 @@
 const AWS = require("aws-sdk");
 const timestreamquery = new AWS.TimestreamQuery();
+var moment = require("moment-timezone");
 
 exports.handler =  async event => {
   console.log("event: ", event);
@@ -22,9 +23,12 @@ var timereq = datadate.substr(datadate.indexOf(' ')+1);
 var houreq = timereq.substr(0,timereq.indexOf(':')+3);
 console.log("houreq: ", houreq);
 
-//var offset = 5;
-//var usaTime = utc - (3600000*offset);
-console.log("usaTime: ",houreq);  
+//Conver to time in EST
+var timeutc = moment.tz(datadate, 'Europe/London');
+var newyork = timeutc.clone().tz("America/New_York").format('HH:mm');
+console.log("EST time: ",newyork);
+
+
 console.log("data: ",dataproc);           // successful response
 var responseJson =  {
     version: "1.0",
@@ -32,7 +36,7 @@ var responseJson =  {
       outputSpeech: 
        {
          type: "PlainText",
-         text: "The temperature inside is " + dataproc + " degrees farenheit at " + houreq, 
+         text: "The temperature inside is " + dataproc + " degrees farenheit at " + newyork, 
        },
       shouldEndSession: true
       },
@@ -46,6 +50,7 @@ return responseJson;
 //};
   }
 catch (e) {
+    console.log("error: ", e);
     return e;
     //{
     //  statusCode: 500,

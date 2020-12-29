@@ -1,0 +1,25 @@
+{
+  "name": "rasptemp-cdk",
+  "version": "0.1.0",
+  "bin": {
+    "rasptemp-cdk": "bin/rasptemp-cdk.js"
+  },
+  "scripts": {
+    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
+    "cdk": "cdk",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.80.0",
+    "aws-cdk": "1.80.0",
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.80.0",
+    "@aws-cdk/aws-iam": "^1.80.0",
+    "@aws-cdk/aws-iot": "^1.80.0",
+    "@aws-cdk/aws-lambda": "^1.80.0",
+    "@aws-cdk/aws-timestream": "^1.80.0",
+    "@aws-cdk/core": "1.80.0"
+  }
+}

@@ -20,7 +20,9 @@
     "@aws-cdk/aws-iam": "^1.80.0",
     "@aws-cdk/aws-iot": "^1.80.0",
     "@aws-cdk/aws-lambda": "^1.80.0",
+    "@aws-cdk/aws-ssm": "^1.82.0",
     "@aws-cdk/aws-timestream": "^1.80.0",
-    "@aws-cdk/core": "1.80.0"
+    "@aws-cdk/core": "1.80.0",
+    "@aws-cdk/custom-resources": "^1.82.0"
   }
 }

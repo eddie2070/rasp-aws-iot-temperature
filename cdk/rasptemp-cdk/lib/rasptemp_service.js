@@ -269,6 +269,8 @@ class RaspService extends core.Construct {
                       "cat ../certificates | jq -r '.certificatePem' > raspberry-temp-wyeth.cert.pem", 
                       "cat ../certificates | jq -r '.keyPair.PrivateKey' > raspberry-temp-wyeth.private.key",
                       "rm -rf aws-iot-device-sdk-python/",
+                      "pip install --upgrade pip",
+                      "pip3 install boto3",
                       "pip3 install adafruit-circuitpython-dht",
                       "./start.sh" 
                     ]

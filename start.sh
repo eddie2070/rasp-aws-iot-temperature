@@ -28,5 +28,6 @@ fi
 
 # run pub/sub sample app using certificates downloaded in package
 printf "\nRunning pub/sub sample application...\n"
-python3 mqtt-dht22-aws.py -t sensor/wyeth/temp1 -e a24q730gxudk4k-ats.iot.us-east-1.amazonaws.com -r root-CA.crt -c raspberry-temp-wyeth.cert.pem -k raspberry-temp-wyeth.private.key > awstemp2.log & 
+python3 mqtt-dht22-aws.py -t sensor/location1/temp1 -e a24q730gxudk4k-ats.iot.us-east-1.amazonaws.com -r root-CA.crt -c raspberry-temp-wyeth.cert.pem -k raspberry-temp-wyeth.private.key > awstemp2.log & 
+python3 mqtt-darksky-aws.py -t sensor/location1/temp1 -e a24q730gxudk4k-ats.iot.us-east-1.amazonaws.com -r root-CA.crt -c raspberry-temp-wyeth.cert.pem -k raspberry-temp-wyeth.private.key > awstempdark.log &
 #python mqtt-dht22-aws.py -t sensor/wyeth/temp1 -e a24q730gxudk4k-ats.iot.us-east-1.amazonaws.com -r root-CA.crt -c raspberry-temp-wyeth.cert.pem -k raspberry-temp-wyeth.private.key > awstemp2.log 2>&1 & 

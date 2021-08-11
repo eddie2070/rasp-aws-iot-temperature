@@ -29,7 +29,7 @@ import os
 import time
 import urllib.request as urllib2
 
-ssm = boto3.client('ssm')
+ssm = boto3.client('ssm', region_name='us-east-1')
 
 AllowedActions = ['both', 'publish', 'subscribe']
 

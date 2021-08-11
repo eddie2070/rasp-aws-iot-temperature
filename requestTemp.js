@@ -9,6 +9,13 @@ exports.handler =  async event => {
   
   const params = {
   QueryString: 'SELECT * FROM "TempWyeth"."Temp1"  WHERE measure_name = temp ORDER BY time DESC LIMIT 1', /* required */
+  //ClientToken: 'STRING_VALUE
+  //MaxRows: '1',
+  //NextToken: 'STRING_VALUE'
+};
+
+  const paramsb = {
+  QueryString: 'SELECT * FROM "TempWyeth"."ext"  WHERE measure_name = temp ORDER BY time DESC LIMIT 1', /* required */
   //ClientToken: 'STRING_VALUE',
   //MaxRows: '1',
   //NextToken: 'STRING_VALUE'
@@ -17,8 +24,12 @@ exports.handler =  async event => {
 try {
 var timeresp = await timestreamquery.query(params).promise();
 console.log("timestreamquery :", timeresp.Rows[0]);
-var dataproc = JSON.stringify(timeresp.Rows[0].Data[2].ScalarValue, null, 2);
-var datadate = JSON.stringify(timeresp.Rows[0].Data[4].ScalarValue, null, 2);
+//var dataproc = JSON.stringify(timeresp.Rows[0].Data[2].ScalarValue, null, 2);
+var dataproc = JSON.stringify(timeresp.Rows[0].Data[0].ScalarValue, null, 2);
+var timerespext = await timestreamquery.query(paramsb).promise();
+console.log("timestreamquery-ext :", timerespext.Rows[2]);
+var dataprocext = JSON.stringify(timerespext.Rows[0].Data[0].ScalarValue, null, 2);
+var datadate = JSON.stringify(timeresp.Rows[0].Data[2].ScalarValue, null, 2);
 var timereq = datadate.substr(datadate.indexOf(' ')+1);
 var houreq = timereq.substr(0,timereq.indexOf(':')+3);
 console.log("houreq: ", houreq);
@@ -36,8 +47,9 @@ var responseJson =  {
       outputSpeech: 
        {
          type: "PlainText",
-         text: "The temperature inside is " + dataproc + " degrees farenheit at " + newyork, 
+         text: "The temperature inside is " + dataproc + " degrees farenheit at " + newyork + ". The temperature outside is " + dataprocext, 
        },
+
       shouldEndSession: true
       },
       sessionAttributes: {}
@@ -57,5 +69,4 @@ catch (e) {
   //};
   }
 };
-
 

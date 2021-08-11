@@ -9,6 +9,8 @@ const cloud9 = require("@aws-cdk/aws-cloud9");
 const ssm = require("@aws-cdk/aws-ssm");
 const custom = require("@aws-cdk/custom-resources");
 
+const layerArnAsk = "arn:aws:lambda:us-east-1:173334852312:layer:ask-sdk-for-nodejs:4";
+
 
 class RaspService extends core.Construct {
   constructor(scope, id) {
@@ -44,14 +46,16 @@ class RaspService extends core.Construct {
       description: 'A layer with moment timezone',
     })
 
+    const lambdaalexasdklayer = lambda.LayerVersion.fromLayerVersionArn(this, "ask-layer", layerArnAsk)
+
     const handler = new lambda.Function(this, "requestTemperatureFromRasp", {
       runtime: lambda.Runtime.NODEJS_12_X, //
-      code: lambda.Code.asset("resources"),
+      code: lambda.Code.asset("resources/requestTempLambda"),
       handler: "requestTemp.handler",
       environment: {
         //BUCKET: bucket.bucketName
       },
-      layers: [lambdamomentlayer]
+      layers: [lambdamomentlayer,lambdaalexasdklayer]
     });
 
     // handler.addToRolePolicy(new iam.PolicyStatement({
@@ -193,9 +197,10 @@ class RaspService extends core.Construct {
       effect: iam.Effect.ALLOW,
       actions: [
         "dynamodb:PutItem",
-        "dynamodb:UpdateItem"
+        "dynamodb:UpdateItem",
+        "iot:DeletePolicy"
       ],
-      resources: ['arn:aws:dynamodb:us-east-1:753451452012:table/deviceInfo']
+      resources: ['arn:aws:dynamodb:us-east-1:753451452012:table/deviceInfo', 'arn:aws:iot:us-east-1:753451452012:policy/1234567890']
     }));
 
     const myProvider = new custom.Provider(this, 'MyProvider', {

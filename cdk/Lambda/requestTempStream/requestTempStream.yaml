@@ -5,7 +5,7 @@ Resources:
   requestTempStream:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: index.handler
+      Handler: requestTemp.handler
       Runtime: nodejs12.x
       CodeUri: .
       Description: ''
@@ -13,5 +13,24 @@ Resources:
       Timeout: 10
       Role: >-
         arn:aws:iam::753451452012:role/service-role/requestTempStream-role-knvije1x
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /temp
+            Method: ANY
+        Api2:
+          Type: Api
+          Properties:
+            Path: /temp
+            Method: GET
+        Api3:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        AlexaSkillEvent:
+          Type: AlexaSkill
       Layers:
         - 'arn:aws:lambda:us-east-1:753451452012:layer:moment-layer:2'
+        - 'arn:aws:lambda:us-east-1:173334852312:layer:ask-sdk-for-nodejs:4'

@@ -9,6 +9,14 @@ This entire architecture can be deployed via the CDK/CloudFormation provided her
 
 <img src="https://github.com/eddie2070/rasp-aws-iot-temperature/blob/main/img/Temperature-sensor.png?raw=true"/>
 
+### Dependencies
+On RaspberryPi, you need Python 3.6+ and install:  
+- sudo python3.6 -m pip install Adafruit_DHT
+- sudo python3.6 -m pip install python-dotenv
+- git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+- python3 -m pip install ./aws-iot-device-sdk-python-v2
+
+
 ### Notes
 
 Timestream IoT rule not yet supported in CloudFormation or CDK. Used a Custom Resource. 

@@ -7,13 +7,11 @@ import os
 from uuid import uuid4
 import json
 import logging
-import Adafruit_DHT as dht
-
 
 # logging  
-LOG = "/home/pi/Documents/aws/debug.log"                                                     
+LOG = "/Users/kedouard/Documents/SA/Labs/button_farm/aws/debug.log"                                                     
 logging.basicConfig(level=logging.INFO, format="%(asctime)-10s %(name)-12s %(levelname)-8s %(message)s",datefmt='%Y-%m-%d %H:%M:%S', handlers=[
-        logging.FileHandler("/home/pi/Documents/aws/debug.log"),
+        logging.FileHandler("/Users/kedouard/Documents/SA/Labs/button_farm/aws/debug.log"),
         logging.StreamHandler()
     ])  
 # logger = logging.getLogger()
@@ -179,7 +177,7 @@ if __name__ == '__main__':
 
     # Publish
     while True:
-        humidity,temperature = dht.read_retry(dht.DHT22, 17)
+        humidity,temperature = 43.123,20.1321
         humidity = round(humidity, 2)
         temperature = temperature * 9/5.0 + 32  # Convert to Fahrenheit
         temperature = round(temperature, 2)
